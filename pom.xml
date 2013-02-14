@@ -1,0 +1,66 @@
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>org.macker.example</groupId>
+  <artifactId>macker-example</artifactId>
+  <version>1.0-SNAPSHOT</version>
+  <packaging>jar</packaging>
+
+  <name>macker-example</name>
+
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+  </properties>
+
+  <!-- macker maven pluginhas not been released in maven central repository yet (http://jira.codehaus.org/browse/MOJO-1588), we need 
+    to use another repository maintained at http://code.google.com/p/code-cop-code/ -->
+  <pluginRepositories>
+    <pluginRepository>
+      <releases>
+        <enabled>true</enabled>
+        <updatePolicy>never</updatePolicy>
+      </releases>
+      <snapshots>
+        <enabled>false</enabled>
+      </snapshots>
+      <id>ccc-plugin-releases</id>
+      <name>Code Cop Code Releases</name>
+      <url>http://mvn2repo.code-cop-code.googlecode.com/hg/releases</url>
+    </pluginRepository>
+  </pluginRepositories>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>macker-maven-plugin</artifactId>
+        <version>0.9.0</version>
+        <configuration>
+          <maxmsg>0</maxmsg>
+          <print>info</print>
+          <anger>info</anger>
+          <rule>src/main/resources/macker-rules.xml</rule>
+          <verbose>false</verbose>
+        </configuration>
+        <executions>
+          <execution>
+            <phase>compile</phase>
+            <goals>
+              <goal>macker</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+  
+  <dependencies>
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+</project>

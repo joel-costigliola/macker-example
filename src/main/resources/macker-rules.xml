@@ -1,0 +1,29 @@
+<?xml version="1.0"?>
+
+<macker>
+
+
+    <ruleset name="Layered architecture rules">
+        
+        <!-- global variables definition -->
+        <var name="base" value="org.macker.example" />
+        
+        <!-- patterns -->
+        <pattern name="services" class="${base}.service.**"/>
+        <pattern name="daos" class="${base}.dao.**">
+            <exclude class="${base}.providers.*"/>
+        </pattern>
+        <pattern name="views" class="${base}.view.**"/>
+        
+        <access-rule severity="error">
+            <message>View classes (${from}) can not access DAO classes directly (${to})</message>
+            <deny>
+                <to pattern="daos"/>
+                <from pattern="views"/>
+            </deny>
+        </access-rule>
+                
+    </ruleset>
+
+
+</macker>
