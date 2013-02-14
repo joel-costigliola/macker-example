@@ -3,27 +3,45 @@
 <macker>
 
 
-    <ruleset name="Layered architecture rules">
-        
-        <!-- global variables definition -->
-        <var name="base" value="org.macker.example" />
-        
-        <!-- patterns -->
-        <pattern name="services" class="${base}.service.**"/>
-        <pattern name="daos" class="${base}.dao.**">
-            <exclude class="${base}.providers.*"/>
-        </pattern>
-        <pattern name="views" class="${base}.view.**"/>
-        
-        <access-rule severity="error">
-            <message>View classes (${from}) can not access DAO classes directly (${to})</message>
-            <deny>
-                <to pattern="daos"/>
-                <from pattern="views"/>
-            </deny>
-        </access-rule>
-                
-    </ruleset>
+  <ruleset name="example rules">
+
+    <!-- global variables definition -->
+    <var name="base" value="org.macker.example" />
+
+    <!-- patterns -->
+    <pattern name="services" class="${base}.service.**" />
+    <pattern name="daos" class="${base}.dao.**">
+      <exclude class="${base}.providers.*" />
+    </pattern>
+    <pattern name="views" class="${base}.view.**" />
+
+    <!-- rules -->
+    <access-rule severity="error">
+      <message>View classes (${from}) can not access DAO classes directly (${to})</message>
+      <deny>
+        <to pattern="daos" />
+        <from pattern="views" />
+      </deny>
+    </access-rule>
+
+    <!-- rule for domain models -->
+    <access-rule severity="error">
+      <message>player domain classes (${from}) can not access stats domain classes (${to})</message>
+      <deny>
+        <to class="${base}.domain.stats.*" />
+        <from class="${base}.domain.player.*" />
+      </deny>
+    </access-rule>
+
+    <!-- example : deny access to "old" JDK classes  -->
+    <access-rule>
+      <message>${to-full} must not be used</message>
+      <deny>
+        <to class="java.util.Vector" />
+      </deny>
+    </access-rule>
+
+  </ruleset>
 
 
 </macker>

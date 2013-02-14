@@ -1,6 +1,6 @@
 package org.macker.example.dao;
 
-import org.macker.example.model.Player;
+import org.macker.example.domain.player.Player;
 
 public class PlayerDAO {
 
